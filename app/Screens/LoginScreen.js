@@ -1,12 +1,10 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Formik } from 'formik';
 import * as yup from 'yup'
 
 import Screen from '../components/Screen.js';
 import SubmitButton from '../components/SubmitButton.js';
-import AppForm from '../components/forms/AppForm.js'
-import AppFormField from '../components/forms/AppFormField.js';
+import { AppForm, AppFormField } from '../components/forms';
 
 
 // defineing validation schema for login form

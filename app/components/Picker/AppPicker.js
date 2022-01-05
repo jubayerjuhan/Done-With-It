@@ -7,9 +7,9 @@ import { Modal, StyleSheet, Text, Button, View, TouchableWithoutFeedback, FlatLi
 import Colors from '../../config/Colors.js';
 import AppText from '../AppText/AppText.js';
 import Screen from '../Screen';
-import AppPickerItem from '../AppPickerItem.js';
+import AppPickerItem from './AppPickerItem.js';
 
-function AppPicker({ icon, placeholder }) {
+function AppPicker({ icon, placeholder, onSelectItem }) {
   const [modalVisible, setModalVisible] = React.useState(false)
   const [selectedItem, setSelectedItem] = React.useState('')
   const pickerItemsLabel = [
@@ -42,6 +42,7 @@ function AppPicker({ icon, placeholder }) {
               <AppPickerItem title={item.label} onPress={() => {
                 setSelectedItem(item)
                 setModalVisible(false)
+                onSelectItem(item)
               }} />
             )
             }
