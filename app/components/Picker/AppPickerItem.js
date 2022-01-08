@@ -2,17 +2,21 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import AppText from '../AppText/AppText.js';
 
-function AppPickerItem({ title, onPress }) {
-  return (
 
-    <TouchableOpacity onPress={onPress} >
-      <AppText style={styles.text}>{title}</AppText>
+function AppPickerItem({ item, onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <AppText style={styles.text}>{item.label}</AppText>
     </TouchableOpacity >
   );
 }
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 10,
+    alignItems: 'center',
+  },
   text: {
-    paddingVertical: 20,
+    fontSize: 20,
   }
 })
 export default AppPickerItem;

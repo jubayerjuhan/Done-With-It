@@ -9,7 +9,7 @@ import Separator from '../components/Separator'
 export default function MessagesScreen() {
   const [refreshing, setRefreshing] = React.useState(false);
   const [messages, setMessages] = React.useState([
-    { name: 'Abir Hossain', message: 'Hey, how are you?', image: 'https://www.w3schools.com/howto/img_avatar.png' },
+    { name: 'Abir Hossain ', message: 'Hey, how are you? aksjds adkasd sad asda sfdf dsfs dfsdfs dfsd', image: 'https://www.w3schools.com/howto/img_avatar.png' },
     { name: 'Mosh Hamedani', message: 'Hey, how are you?', image: 'https://www.w3schools.com/howto/img_avatar.png' },
   ])
 
@@ -30,6 +30,7 @@ export default function MessagesScreen() {
               title={item.name}
               subtitle={item.message}
               image={item.image}
+              showChevrons
             // renderRightActions={() => (
             //   <View style={{ width: 70, height: 30, backgroundColor: 'red' }}>
             //   </View>
@@ -42,4 +43,11 @@ export default function MessagesScreen() {
     </Screen >
   )
 }
+
+const styles = StyleSheet.create({
+  messageContainer: {
+    padding: 10,
+    flex: 1,
+  },
+})
 

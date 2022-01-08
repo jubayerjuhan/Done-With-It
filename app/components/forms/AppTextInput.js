@@ -5,24 +5,22 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import Colors from '../../config/Colors.js';
 import AppText from '../AppText/AppText.js';
 
-function AppTextInput({ icon, ...otherProps }) {
+function AppTextInput({ icon, width = '100%', ...otherProps }) {
   return (
-    <View style={{ marginVertical: 10 }}>
-      <View style={styles.container}>
-        <MaterialIcons style={styles.icon} name={icon} size={20} color={Colors.medium} />
-        <TextInput
-          style={styles.input}
-          {...otherProps}
-        >
-        </TextInput>
-      </View>
-
+    <View style={[styles.container, { width }]}>
+      <MaterialIcons style={styles.icon} name={icon} size={20} color={Colors.medium} />
+      <TextInput
+        style={styles.input}
+        {...otherProps}
+      >
+      </TextInput>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginVertical: 10,
     borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
@@ -33,6 +31,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   input: {
+    width: 10,
     color: Colors.black,
     fontSize: 18,
     flex: 1,

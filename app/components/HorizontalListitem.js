@@ -3,9 +3,10 @@ import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } f
 import Colors from '../config/Colors.js'
 import AppText from './AppText/AppText.js'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { Entypo } from "@expo/vector-icons";
 
 
-const HorizontalListitem = ({ image, title, subtitle, onPress, style, iconComponent: imageComponent, padding = true, backgroundColor = 'white' }) => {
+const HorizontalListitem = ({ image, title, subtitle, onPress, showChevrons, iconComponent: imageComponent, padding = true, backgroundColor = 'white' }) => {
   console.log(Swipeable)
   return (
     <Swipeable renderRightActions={() => (
@@ -20,15 +21,21 @@ const HorizontalListitem = ({ image, title, subtitle, onPress, style, iconCompon
       <TouchableHighlight
         underlayColor={Colors.lightgray}
         onPress={onPress}
-        style={{ paddingHorizontal: !padding ? 0 : 10, backgroundColor }}
+        style={[{ paddingHorizontal: !padding ? 0 : 10, backgroundColor }, styles.container]}
       >
+
         <View style={styles.listContainer}>
           {imageComponent}
           {image && <Image style={styles.image} source={{ uri: image }}></Image>}
           <View style={styles.title}>
-            <AppText style={{ fontWeight: 'bold' }}>{title}</AppText>
-            {subtitle && <AppText style={styles.subtitle}>{subtitle}</AppText>}
+            <AppText style={{ fontWeight: 'bold' }} numberOfLines={1}>{title}</AppText>
+            {subtitle && <AppText style={styles.subtitle} numberOfLines={1}>{subtitle}</AppText>}
           </View>
+          {
+            showChevrons && (
+              <Entypo style={styles.icon} name='chevron-right' size={25} color={Colors.medium} />
+            )
+          }
         </View>
       </TouchableHighlight>
     </Swipeable >
@@ -37,6 +44,7 @@ const HorizontalListitem = ({ image, title, subtitle, onPress, style, iconCompon
 
 const styles = StyleSheet.create({
   listContainer: {
+    // backgroundColor: 'dodgerblue',
     paddingVertical: 10,
     width: '100%',
     flexDirection: 'row',
@@ -49,13 +57,13 @@ const styles = StyleSheet.create({
   },
 
   title: {
+    flex: 1,
     paddingHorizontal: 10,
   },
   subtitle: {
     marginTop: 1,
     color: 'gray',
     fontSize: 14,
-
   },
 
 })
