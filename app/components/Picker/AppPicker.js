@@ -8,6 +8,7 @@ import Colors from '../../config/Colors.js';
 import AppText from '../AppText/AppText.js';
 import Screen from '../Screen';
 import AppPickerItem from './AppPickerItem.js';
+import { useFormikContext } from 'formik';
 
 function AppPicker({
   icon,
@@ -18,6 +19,8 @@ function AppPicker({
 }) {
   const [modalVisible, setModalVisible] = React.useState(false)
   const [selectedItem, setSelectedItem] = React.useState('')
+
+  const { values } = useFormikContext()
   const pickerItemsLabel = [
     { label: 'Furnitures', value: 1, icon: 'floor-lamp', bg: '#fc5c65' },
     { label: 'Cars', value: 2, icon: 'car', bg: '#fd9644' },

@@ -1,10 +1,13 @@
-import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { Image, StyleSheet } from 'react-native';
 import * as yup from 'yup'
 
 import Screen from '../components/Screen.js';
 import SubmitButton from '../components/SubmitButton.js';
 import { AppForm, AppFormField } from '../components/forms';
+import auth from '../api/auth.js';
+import AppText from '../components/AppText/AppText.js';
+import useAuth from '../Hooks/useAuth.js';
 
 
 // defineing validation schema for login form
@@ -13,18 +16,36 @@ const validationSchema = yup.object().shape({
   password: yup.string().required().min(5).label('Password'),
 })
 
+
+
 function LoginScreen() {
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const { login } = useAuth()
+
+  const handleSubmit = async (values) => {
+    const { data, ok, problem } = await auth.loginUser(values)
+    setError(null)
+    if (!ok) {
+      if (problem === 'TIMEOUT_ERROR') return setError('Please Try Again Later')
+      return setError(data.error)
+    }
+    login(data)
+  }
+
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require('../assets/logo-red.png')} />
+
+      <AppText>{success}{error}</AppText>
+
       <AppForm
         initialValues={{ email, password }}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => {
-          console.log(values);
-        }}
+        onSubmit={(values, actions) => handleSubmit(values)}
       >
         <AppFormField
           icon="email"

@@ -2,43 +2,31 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
 import Colors from '../config/Colors.js'
 import AppText from './AppText/AppText.js'
-import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Entypo } from "@expo/vector-icons";
 
 
 const HorizontalListitem = ({ image, title, subtitle, onPress, showChevrons, iconComponent: imageComponent, padding = true, backgroundColor = 'white' }) => {
-  console.log(Swipeable)
   return (
-    <Swipeable renderRightActions={() => (
-      <View style={{
-        width: 70,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "red"
-      }}>
-      </View>
-    )} >
-      <TouchableHighlight
-        underlayColor={Colors.lightgray}
-        onPress={onPress}
-        style={[{ paddingHorizontal: !padding ? 0 : 10, backgroundColor }, styles.container]}
-      >
+    <TouchableHighlight
+      underlayColor={Colors.lightgray}
+      onPress={onPress}
+      style={[{ paddingHorizontal: !padding ? 0 : 10, backgroundColor }, styles.container]}
+    >
 
-        <View style={styles.listContainer}>
-          {imageComponent}
-          {image && <Image style={styles.image} source={{ uri: image }}></Image>}
-          <View style={styles.title}>
-            <AppText style={{ fontWeight: 'bold' }} numberOfLines={1}>{title}</AppText>
-            {subtitle && <AppText style={styles.subtitle} numberOfLines={1}>{subtitle}</AppText>}
-          </View>
-          {
-            showChevrons && (
-              <Entypo style={styles.icon} name='chevron-right' size={25} color={Colors.medium} />
-            )
-          }
+      <View style={styles.listContainer}>
+        {imageComponent}
+        {image && <Image style={styles.image} source={{ uri: image }}></Image>}
+        <View style={styles.title}>
+          <AppText style={{ fontWeight: 'bold' }} numberOfLines={1}>{title}</AppText>
+          {subtitle && <AppText style={styles.subtitle} numberOfLines={1}>{subtitle}</AppText>}
         </View>
-      </TouchableHighlight>
-    </Swipeable >
+        {
+          showChevrons && (
+            <Entypo style={styles.icon} name='chevron-right' size={25} color={Colors.medium} />
+          )
+        }
+      </View>
+    </TouchableHighlight>
   )
 }
 

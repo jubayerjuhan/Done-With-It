@@ -8,9 +8,10 @@ const AppFormPicker = ({ name, width, PickerItemComponent, ...otherProps }) => {
   return (
     <>
       <AppPicker
+        name={name}
         PickerItemComponent={PickerItemComponent}
         width={width}
-        onSelectItem={value => setFieldValue(name, value.label)}
+        onSelectItem={val => setFieldValue(name, val.value)}
         {...otherProps}
       />
       <ErrorMessage error={errors[name]} touched={touched[name]} />

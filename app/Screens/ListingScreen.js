@@ -1,31 +1,53 @@
-import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { FlatList, StyleSheet, Button, View } from 'react-native';
+
+import useApi from '../Hooks/useApi.js'
+import ErrorRetry from '../components/Network Component/ErrorRetry.js';
+import listings from '../api/listings.js';
 import Card from '../components/Card.js';
 import Screen from '../components/Screen.js';
 import Colors from '../config/Colors.js';
+import NetworkLoading from '../components/Network Component/NetworkLoading.js';
 
-function ListingScreen() {
-  const [refreshing, setRefreshing] = React.useState(false);
-  const mockListings = [
-    { name: 'Red Jacket For Sale', price: '$230', image: require('../assets/red-jacket.jpg') },
-    { name: 'Coutch In Good Condition', price: '$1030', image: require('../assets/coutch.jpg') },
-    { name: 'Nikon Camera Used Like New', price: '$2093', image: require('../assets/camera.jpg') },
-  ]
+function ListingScreen({ navigation }) {
+  const { request: loadListings, data: allListings, error, loading } = useApi(listings.getListings)
+
+  const handleCardPress = (item) => {
+    navigation.navigate('ListingDetails', item);
+  }
+
+  useEffect(() => {
+    loadListings();
+  }, [])
+
+
   return (
     <Screen style={styles.screen}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={mockListings}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => (
-          <View style={styles.container}>
-            <Card
-              title={item.name}
-              subtitle={item.price}
-              image={item.image} />
-          </View>
-        )}
-      />
+      {error && <>
+        <ErrorRetry errorMessage={error} onPress={loadListings} />
+      </>}
+
+      {loading &&
+        <NetworkLoading />
+      }
+
+      <View>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={allListings}
+          keyExtractor={(item) => item.title}
+          renderItem={({ item }) => (
+            <View style={styles.container}>
+              <Card
+                onPress={() => handleCardPress(item)}
+                title={item.title}
+                subtitle={item.price}
+                imageUrl={item?.images[0]?.url} />
+            </View>
+          )}
+        />
+      </View>
+
     </Screen>
   );
 }

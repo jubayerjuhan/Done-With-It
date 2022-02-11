@@ -5,13 +5,14 @@ import ErrorMessage from '../ErrorMessage.js';
 import { View } from 'react-native';
 
 function AppFormField({ name, width, ...otherProps }) {
-  const { handleChange, setFieldTouched, touched, errors } = useFormikContext();
+  const { setFieldValue, setFieldTouched, touched, errors, values } = useFormikContext();
   return (
     <>
       <AppTextInput
         width={width}
-        onChangeText={handleChange(name)}
+        onChangeText={text => setFieldValue(name, text)}
         onBlur={() => setFieldTouched(name)}
+        value={values[name]}
         {...otherProps}
       />
       <ErrorMessage error={errors[name]} touched={touched[name]} />

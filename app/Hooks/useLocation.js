@@ -15,7 +15,7 @@ export const useLocation = () => {
     const getLocation = async () => {
       const { granted } = await Location.requestForegroundPermissionsAsync();
       if (!granted) return
-      const { coords: { latitude, longitude } } = await Location.getCurrentPositionAsync({});
+      const { coords: { latitude, longitude } } = await Location.getLastKnownPositionAsync({});
       setLocation({ latitude, longitude });
     }
   } catch (error) {

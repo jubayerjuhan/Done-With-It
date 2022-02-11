@@ -5,15 +5,15 @@ import { StatusBar } from 'react-native'
 import Colors from '../config/Colors.js';
 import HorizontalListitem from '../components/HorizontalListitem.js';
 
-function ListingDetailsScreen(props) {
-
+function ListingDetailsScreen({ route }) {
+  const listing = route.params;
   return (
     <View style={styles.listingDetailsContainer}>
-      <Image style={styles.image} source={require('../assets/red-jacket.jpg')} />
+      <Image style={styles.image} source={{ uri: listing.images[0].url }} />
       <View style={styles.listingContentWrapper}>
         <View style={styles.listingHeadInfo}>
-          <AppText style={styles.title}>Red Jacket For Sell</AppText>
-          <AppText style={styles.price}>$230</AppText>
+          <AppText style={styles.title}>{listing.title}</AppText>
+          <AppText style={styles.price}>{`$${listing.price}`}</AppText>
         </View>
         {/* horizontal list item for showing the seller image and listing count */}
         <HorizontalListitem
@@ -21,7 +21,6 @@ function ListingDetailsScreen(props) {
           image='https://www.w3schools.com/howto/img_avatar.png'
           title='Jubayer Juhan'
           subtitle='10 Listings' />
-
       </View>
     </View>
   );

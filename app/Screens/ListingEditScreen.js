@@ -9,6 +9,7 @@ import AppFormPicker from "./../components/forms/AppFormPicker";
 import CategoryPicker from '../components/Picker/CategoryPicker.js';
 import AppFormImagePicker from '../components/forms/AppFormImagePicker.js';
 import { useLocation } from '../Hooks/useLocation.js';
+import listings from '../api/listings.js';
 
 const ListingEditScreen = () => {
   const [location, setLocation] = useState('')
@@ -20,7 +21,10 @@ const ListingEditScreen = () => {
     images: yup.array().min(1, "Please select at least one image")
   })
   const locations = useLocation()
-  console.log(locations)
+  const handleSubmit = (values, { resetForm }) => {
+    listings.addListings(values)
+    resetForm();
+  }
   return (
     <Screen style={styles.container}>
       <AppForm
@@ -32,7 +36,7 @@ const ListingEditScreen = () => {
           images: [],
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => console.log(location)}
+        onSubmit={handleSubmit}
       >
         <AppFormImagePicker
           name='images'
@@ -71,6 +75,8 @@ const ListingEditScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    // backgroundColor: 'dodgerblue',
     padding: 10,
     paddingTop: 50,
   }
